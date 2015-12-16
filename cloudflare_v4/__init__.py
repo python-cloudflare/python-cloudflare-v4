@@ -40,7 +40,7 @@ class CloudFlare(object):
                         params_to_send = data
                     else:
                         params_to_send = params
-                    if params_to_send.has_key('content'):
+                    if type(params_to_send) is list and 'content' in params_to_send:
                         params_to_send['content'] = urllib.quote(params_to_send['content'])
                     self.logger.debug("params being sent: %s", params_to_send)
                     response = requests.get(url, headers=headers,
@@ -55,7 +55,7 @@ class CloudFlare(object):
                     else:
                         response = requests.delete(url, headers=headers)
                 elif method == 'PATCH':
-                    pass
+                    response = requests.patch(url, headers=headers, json=data)
                 else:
                     raise CloudFlareAPIError('method not supported') # should never happen
                 data = response.text
@@ -94,6 +94,10 @@ class CloudFlare(object):
             return self.base_client.call('DELETE', self.main_endpoint,
                 self.endpoint, params, data)
 
+        def patch(self, params=None, data=None):
+            return self.base_client.call('PATCH', self.main_endpoint,
+                self.endpoint, params, data)
+
 
     def __init__(self, email, token, debug):
         self.base_client = self.BaseClient(email, token, debug)
@@ -104,3 +108,9 @@ class CloudFlare(object):
             "zones", "dns_records"))
         setattr(zones, "purge_cache", self.DynamicClient(self.base_client,
             "zones", "purge_cache"))
+
+        # access to settings, workaround to access subsettings with _
+        setattr(zones, "settings", self.DynamicClient(self.base_client,
+            "zones", "settings"))
+        setattr(zones, "settings_ssl", self.DynamicClient(self.base_client,
+            "zones", "settings/ssl"))
