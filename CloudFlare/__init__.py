@@ -195,5 +195,5 @@ class CloudFlare(object):
 
 	# add the API calls
 	api_v4(self)
-	api_extras(self, extras)
+	if extras != None: api_extras(self, extras)
 
