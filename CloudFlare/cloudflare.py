@@ -174,9 +174,13 @@ class CloudFlare(object):
             if response_data['success'] is False:
                 code = response_data['errors'][0]['code']
                 message = response_data['errors'][0]['message']
+                if len(response_data['messages'])>0:
+                        detailmessage = ' Detailed message: '+response_data['messages'][0]['message']
+                else:
+                        detailmessage = ''
                 if self.logger:
-                    self.logger.debug('Response: error %d %s' % (code, message))
-                raise CloudFlareAPIError(code, message)
+                    self.logger.debug('Response: error %d %s %s' % (code, message, detailmessage))
+                raise CloudFlareAPIError(code, message+detailmessage)
 
             result = response_data['result']
             if self.logger:
