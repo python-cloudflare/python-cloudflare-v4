@@ -1,38 +1,43 @@
-
+""" Logging for CloudFlare API"""
 import logging
 
 DEBUG = 0
 INFO = 1
 
-class Logger:
-	def __init__(self, level):
-		self.logger_level = self._get_logging_level(level)
-		#logging.basicConfig(level=self.logger_level)
-		request_logger = logging.getLogger("requests.packages.urllib3")
-		request_logger.setLevel(self.logger_level)
-		request_logger.propagate = level
+class Logger(object):
+    """ Logging for CloudFlare API"""
 
-	def getLogger(self):
-		# create logger
-		logger = logging.getLogger('Python CloudFlare API v4')
-		logger.setLevel(self.logger_level)
+    def __init__(self, level):
+        """ Logging for CloudFlare API"""
+        self.logger_level = self._get_logging_level(level)
+        #logging.basicConfig(level=self.logger_level)
+        request_logger = logging.getLogger("requests.packages.urllib3")
+        request_logger.setLevel(self.logger_level)
+        request_logger.propagate = level
 
-		ch = logging.StreamHandler()
-		ch.setLevel(self.logger_level)
+    def getLogger(self):
+        """ Logging for CloudFlare API"""
+        # create logger
+        logger = logging.getLogger('Python CloudFlare API v4')
+        logger.setLevel(self.logger_level)
 
-		# create formatter
-		formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        ch = logging.StreamHandler()
+        ch.setLevel(self.logger_level)
 
-		# add formatter to ch
-		ch.setFormatter(formatter)
+        # create formatter
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
-		# add ch to logger
-		logger.addHandler(ch)
+        # add formatter to ch
+        ch.setFormatter(formatter)
 
-		return logger
+        # add ch to logger
+        logger.addHandler(ch)
 
-	def _get_logging_level(self, level):
-		if level == True:
-			return logging.DEBUG
-		else:
-			return logging.INFO
+        return logger
+
+    def _get_logging_level(self, level):
+        """ Logging for CloudFlare API"""
+        if level is True:
+            return logging.DEBUG
+        else:
+            return logging.INFO

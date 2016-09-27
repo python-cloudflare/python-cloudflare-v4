@@ -1,18 +1,31 @@
+""" errors for CloudFlare API"""
 
 class CloudFlareError(Exception):
-	def __init__(self, code, message):
-		self.code = code
-		self.message = message
+    """ errors for CloudFlare API"""
 
-	def __int__(self):
-		return self.code
+    def __init__(self, code, message):
+        """ errors for CloudFlare API"""
 
-	def __str__(self):
-		return self.message
+        self.code = code
+        self.message = message
+
+    def __int__(self):
+        """ errors for CloudFlare API"""
+
+        return self.code
+
+    def __str__(self):
+        """ errors for CloudFlare API"""
+
+        return self.message
 
 class CloudFlareAPIError(CloudFlareError):
-	pass
+    """ errors for CloudFlare API"""
+
+    pass
 
 class CloudFlareInternalError(CloudFlareError):
-	pass
+    """ errors for CloudFlare API"""
+
+    pass
 

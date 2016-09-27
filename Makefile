@@ -27,6 +27,8 @@ upload: clean all
 	$(PYTHON) setup.py sdist upload --sign --identity="$(EMAIL)"
 
 clean:
-	rm -rf build dist
+	rm -rf build
+	rm -rf dist
+	mkdir build dist
 	$(PYTHON) setup.py clean
 
