@@ -176,6 +176,8 @@ class CloudFlare(object):
             response_data = response.text
             if self.logger:
                 self.logger.debug('Response: data %s' % response_data)
+            if response.url.endswith('dns_records/export'):
+                response_data = json.dumps({ 'result': response_data })
             try:
                 response_data = json.loads(response_data)
             except ValueError:

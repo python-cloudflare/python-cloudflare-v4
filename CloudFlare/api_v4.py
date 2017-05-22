@@ -97,6 +97,9 @@ def zones(self):
             self._add_with_auth(base, "zones", "purge_cache"))
     setattr(branch, "railguns",
             self._add_with_auth(base, "zones", "railguns"))
+    branch = getattr(getattr(self, "zones"), "dns_records")
+    setattr(branch, "export",
+            self._add_with_auth(base, "zones", "dns_records", "export"))
     branch = getattr(getattr(self, "zones"), "railguns")
     setattr(branch, "diagnose",
             self._add_with_auth(base, "zones", "railguns", "diagnose"))
