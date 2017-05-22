@@ -8,7 +8,7 @@ import CloudFlare
 import pytest
 
 def test_ips():
-	cf = CloudFlare.CloudFlare()
-	zones = cf.ips.get()
-	assert zones
+    cf = CloudFlare.CloudFlare()
+    ips = cf.ips.get()
+    assert ips
 
